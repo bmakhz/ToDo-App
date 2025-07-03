@@ -1,11 +1,10 @@
-
 'use client';
 
 import { useState } from 'react';
 import useTodos from '../../hooks/use.js';
 
 export default function Home() {
-  const { list, add, update, remove } = useTodos();
+  const { todos, add, update, remove } = useTodos();
   const [title, set_title] = useState('');
   const [desc, set_desc] = useState('');
   const cols = ['Pending', 'In Progress', 'Done'];
@@ -44,6 +43,14 @@ export default function Home() {
         {cols.map((col) => (
           <div key={col} className="bg-white rounded-lg shadow p-4 text-black">
             <h2 className="text-xl font-semibold mb-2 text-black">{col}</h2>
+            {todos
+              .filter((item) => item.status === col)
+              .map((item) => (
+                <div key={item.id} className="border p-3 rounded mb-2 bg-gray-50 text-black">
+                  <h3 className="font-semibold text-black">{item.title}</h3>
+                  <p className="text-sm text-black">{item.description}</p>
+                </div>
+              ))}
           </div>
         ))}
       </div>
