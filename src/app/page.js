@@ -50,7 +50,7 @@ export default function Home() {
                   <h3 className="font-semibold text-black">{item.title}</h3>
                   <p className="text-sm text-black">{item.description}</p>
 
-                  <div className="flex gap-2 mt-2">
+                  <div className="flex flex-wrap gap-2 mt-2">
                     {col !== 'Pending' && (
                       <button
                         onClick={() => update(item.id, 'Pending')}
@@ -75,6 +75,12 @@ export default function Home() {
                         Done
                       </button>
                     )}
+                    <button
+                      onClick={() => remove(item.id)}
+                      className="text-xs bg-red-400 text-white px-2 py-1 rounded"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
