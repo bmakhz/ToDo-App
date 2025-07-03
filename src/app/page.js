@@ -80,30 +80,6 @@ export default function Home() {
                             </p>
 
                             <div className="flex flex-wrap gap-2 mt-2">
-                              {col !== 'Pending' && (
-                                <button
-                                  onClick={() => update(item.id, 'Pending')}
-                                  className="text-xs bg-yellow-300 px-2 py-1 rounded text-black"
-                                >
-                                  Pending
-                                </button>
-                              )}
-                              {col !== 'In Progress' && (
-                                <button
-                                  onClick={() => update(item.id, 'In Progress')}
-                                  className="text-xs bg-blue-300 px-2 py-1 rounded text-black"
-                                >
-                                  In Progress
-                                </button>
-                              )}
-                              {col !== 'Done' && (
-                                <button
-                                  onClick={() => update(item.id, 'Done')}
-                                  className="text-xs bg-green-300 px-2 py-1 rounded text-black"
-                                >
-                                  Done
-                                </button>
-                              )}
                               <button
                                 onClick={() => remove(item.id)}
                                 className="text-xs bg-red-400 text-white px-2 py-1 rounded"
