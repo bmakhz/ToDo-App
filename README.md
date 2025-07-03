@@ -24,7 +24,7 @@ A simple Kanban-style Todo app built with Next.js, Tailwind CSS. Tasks are organ
 
 ## Demo
 
-Live Site: [https://your-vercel-link.vercel.app ](https://trytodo.vercel.app/) 
+Live Site: [https://trytodo.vercel.app ](https://trytodo.vercel.app/) 
 
 ---
 
