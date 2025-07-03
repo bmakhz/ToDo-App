@@ -49,6 +49,33 @@ export default function Home() {
                 <div key={item.id} className="border p-3 rounded mb-2 bg-gray-50 text-black">
                   <h3 className="font-semibold text-black">{item.title}</h3>
                   <p className="text-sm text-black">{item.description}</p>
+
+                  <div className="flex gap-2 mt-2">
+                    {col !== 'Pending' && (
+                      <button
+                        onClick={() => update(item.id, 'Pending')}
+                        className="text-xs bg-yellow-300 px-2 py-1 rounded text-black"
+                      >
+                        Pending
+                      </button>
+                    )}
+                    {col !== 'In Progress' && (
+                      <button
+                        onClick={() => update(item.id, 'In Progress')}
+                        className="text-xs bg-blue-300 px-2 py-1 rounded text-black"
+                      >
+                        In Progress
+                      </button>
+                    )}
+                    {col !== 'Done' && (
+                      <button
+                        onClick={() => update(item.id, 'Done')}
+                        className="text-xs bg-green-300 px-2 py-1 rounded text-black"
+                      >
+                        Done
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
           </div>
