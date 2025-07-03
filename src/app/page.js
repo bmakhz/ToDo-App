@@ -26,24 +26,30 @@ export default function Home() {
     update(id, new_status);
   };
 
-  return (
-    <main className="min-h-screen bg-gray-100 p-6 text-black">
-      <h1 className="text-3xl font-bold mb-6 text-black">Todo App</h1>
+  const col_style = {
+    'Pending': 'bg-yellow-500',
+    'In Progress': 'bg-blue-500',
+    'Done': 'bg-green-500',
+  };
 
-      <form onSubmit={submit} className="mb-6 flex flex-col gap-2 max-w-md text-black">
+  return (
+    <main className="min-h-screen bg-gray-900 p-6 text-white">
+      <h1 className="text-3xl font-bold mb-6 text-white">Todo App</h1>
+
+      <form onSubmit={submit} className="mb-6 flex flex-col gap-2 max-w-md text-white">
         <input
-          className="p-2 border rounded text-black"
+          className="p-2 border rounded bg-gray-800 text-white"
           placeholder="Task Title"
           value={title}
           onChange={(e) => set_title(e.target.value)}
         />
         <textarea
-          className="p-2 border rounded text-black"
+          className="p-2 border rounded bg-gray-800 text-white"
           placeholder="Task Description"
           value={desc}
           onChange={(e) => set_desc(e.target.value)}
         />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button type="submit" className="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700">
           Add Task
         </button>
       </form>
@@ -56,9 +62,9 @@ export default function Home() {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="bg-white rounded-lg shadow p-4 text-black min-h-[150px]"
+                  className={`rounded-lg shadow p-4 min-h-[150px] ${col_style[col]}`}
                 >
-                  <h2 className="text-xl font-semibold mb-2 text-black">{col}</h2>
+                  <h2 className="text-xl font-semibold mb-2 text-white">{col}</h2>
                   {todos
                     .filter((item) => item.status === col)
                     .map((item, index) => (
@@ -72,17 +78,17 @@ export default function Home() {
                             ref={drag.innerRef}
                             {...drag.draggableProps}
                             {...drag.dragHandleProps}
-                            className="border p-3 rounded mb-2 bg-gray-50 text-black break-words"
+                            className="border p-3 rounded mb-2 bg-gray-800 text-white break-words"
                           >
-                            <h3 className="font-semibold text-black">{item.title}</h3>
-                            <p className="text-sm text-black whitespace-pre-wrap break-words">
+                            <h3 className="font-semibold text-white">{item.title}</h3>
+                            <p className="text-sm text-white whitespace-pre-wrap break-words">
                               {item.description}
                             </p>
 
                             <div className="flex flex-wrap gap-2 mt-2">
                               <button
                                 onClick={() => remove(item.id)}
-                                className="text-xs bg-red-400 text-white px-2 py-1 rounded"
+                                className="text-xs bg-red-600 text-white px-2 py-1 rounded"
                               >
                                 Delete
                               </button>
