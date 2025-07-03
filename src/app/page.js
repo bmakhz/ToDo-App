@@ -72,10 +72,12 @@ export default function Home() {
                             ref={drag.innerRef}
                             {...drag.draggableProps}
                             {...drag.dragHandleProps}
-                            className="border p-3 rounded mb-2 bg-gray-50 text-black"
+                            className="border p-3 rounded mb-2 bg-gray-50 text-black break-words"
                           >
                             <h3 className="font-semibold text-black">{item.title}</h3>
-                            <p className="text-sm text-black">{item.description}</p>
+                            <p className="text-sm text-black whitespace-pre-wrap break-words">
+                              {item.description}
+                            </p>
 
                             <div className="flex flex-wrap gap-2 mt-2">
                               {col !== 'Pending' && (
