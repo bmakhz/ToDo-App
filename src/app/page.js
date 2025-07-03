@@ -8,6 +8,8 @@ export default function Home() {
   const { todos, add, update, remove } = useTodos();
   const [title, set_title] = useState('');
   const [desc, set_desc] = useState('');
+  const [show_done, set_show_done] = useState(false);
+
   const cols = ['Pending', 'In Progress', 'Done'];
 
   const submit = (e) => {
@@ -21,8 +23,16 @@ export default function Home() {
   const handle_drag = (res) => {
     const { destination, draggableId } = res;
     if (!destination) return;
+
     const id = parseInt(draggableId);
     const new_status = destination.droppableId;
+
+    const task = todos.find((t) => t.id === id);
+    if (task && task.status !== 'Done' && new_status === 'Done') {
+      set_show_done(true);
+      setTimeout(() => set_show_done(false), 2000);
+    }
+
     update(id, new_status);
   };
 
@@ -35,6 +45,12 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-900 p-6 text-white">
       <h1 className="text-3xl font-bold mb-6 text-white">Todo App</h1>
+
+      {show_done && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <div className="text-6xl animate-bounce">🎉</div>
+        </div>
+      )}
 
       <form onSubmit={submit} className="mb-6 flex flex-col gap-2 max-w-md text-white">
         <input
