@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 export default function useTodos() {
-    
+
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     const stored = localStorage.getItem('todos');
@@ -29,9 +29,9 @@ export default function useTodos() {
     ));
   };
 
-  const delete = (id) => {
+  const remove = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
-  return { todos, add, update, delete };
+  return { todos, add, update, remove };
 }
