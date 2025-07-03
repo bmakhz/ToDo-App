@@ -1,16 +1,21 @@
-// page.js
+
 'use client';
 
 import { useState } from 'react';
+import useTodos from '../../hooks/use.js';
 
 export default function Home() {
+  const { list, add, update, remove } = useTodos();
   const [title, set_title] = useState('');
   const [desc, set_desc] = useState('');
   const cols = ['Pending', 'In Progress', 'Done'];
 
   const submit = (e) => {
     e.preventDefault();
-    
+    if (!title) return;
+    add(title, desc);
+    set_title('');
+    set_desc('');
   };
 
   return (
