@@ -9,6 +9,9 @@ export default function Home() {
   const [title, set_title] = useState('');
   const [desc, set_desc] = useState('');
   const [show_done, set_show_done] = useState(false);
+  const [edit_id, set_edit_id] = useState(null);
+  const [edit_title, set_edit_title] = useState('');
+  const [edit_desc, set_edit_desc] = useState('');
 
   const cols = ['Pending', 'In Progress', 'Done'];
 
@@ -34,6 +37,26 @@ export default function Home() {
     }
 
     update(id, new_status);
+  };
+
+  const start_edit = (item) => {
+    set_edit_id(item.id);
+    set_edit_title(item.title);
+    set_edit_desc(item.description);
+  };
+
+  const handle_save = () => {
+    const updated = todos.map((t) =>
+      t.id === edit_id ? { ...t, title: edit_title, description: edit_desc } : t
+    );
+    localStorage.setItem('todos', JSON.stringify(updated));
+    set_edit_id(null);
+  };
+
+  const handle_cancel = () => {
+    set_edit_id(null);
+    set_edit_title('');
+    set_edit_desc('');
   };
 
   const col_style = {
@@ -96,19 +119,55 @@ export default function Home() {
                             {...drag.dragHandleProps}
                             className="border p-3 rounded mb-2 bg-gray-800 text-white break-words"
                           >
-                            <h3 className="font-semibold text-white">{item.title}</h3>
-                            <p className="text-sm text-white whitespace-pre-wrap break-words">
-                              {item.description}
-                            </p>
-
-                            <div className="flex flex-wrap gap-2 mt-2">
-                              <button
-                                onClick={() => remove(item.id)}
-                                className="text-xs bg-red-600 text-white px-2 py-1 rounded"
-                              >
-                                Delete
-                              </button>
-                            </div>
+                            {edit_id === item.id ? (
+                              <>
+                                <input
+                                  className="w-full p-1 mb-1 text-white rounded"
+                                  value={edit_title}
+                                  onChange={(e) => set_edit_title(e.target.value)}
+                                />
+                                <textarea
+                                  className="w-full p-1 mb-2 text-white rounded"
+                                  value={edit_desc}
+                                  onChange={(e) => set_edit_desc(e.target.value)}
+                                />
+                                <div className="flex gap-2">
+                                  <button
+                                    onClick={handle_save}
+                                    className="text-xs bg-green-600 text-white px-2 py-1 rounded"
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    onClick={handle_cancel}
+                                    className="text-xs bg-gray-600 text-white px-2 py-1 rounded"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <h3 className="font-semibold text-white">{item.title}</h3>
+                                <p className="text-sm text-white whitespace-pre-wrap break-words">
+                                  {item.description}
+                                </p>
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                  <button
+                                    onClick={() => start_edit(item)}
+                                    className="text-xs bg-yellow-300 text-black bg-gray-700 px-2 py-1 rounded"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => remove(item.id)}
+                                    className="text-xs bg-red-600 text-white bg-gray-700 px-2 py-1 rounded"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </>
+                            )}
                           </div>
                         )}
                       </Draggable>
